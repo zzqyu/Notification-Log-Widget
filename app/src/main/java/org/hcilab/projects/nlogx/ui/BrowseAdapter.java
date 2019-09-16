@@ -8,6 +8,7 @@ import android.database.sqlite.SQLiteDatabase;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.os.Handler;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -45,8 +46,11 @@ public class BrowseAdapter extends RecyclerView.Adapter<BrowseViewHolder> {
 	private boolean shouldLoadMore = true;
 
 	public BrowseAdapter(Activity context) {
+		this(context, null);
+	}
+	public BrowseAdapter(Activity context, String s) {
 		this.context = context;
-		loadMore(Integer.MAX_VALUE);
+		loadMore(Integer.MAX_VALUE, s);
 	}
 
 	@NonNull
@@ -110,8 +114,8 @@ public class BrowseAdapter extends RecyclerView.Adapter<BrowseViewHolder> {
 	public int getItemCount() {
 		return data.size();
 	}
-
-	private void loadMore(long afterId) {
+	private void loadMore(long afterId){loadMore(afterId, null);}
+	/*private void loadMore(long afterId) {
 
 		if(!shouldLoadMore) {
 			if(Const.DEBUG) System.out.println("not loading more items");
@@ -147,6 +151,75 @@ public class BrowseAdapter extends RecyclerView.Adapter<BrowseViewHolder> {
 					lastDate = thisDate;
 
 					data.add(dataItem);
+					cursor.moveToNext();
+				}
+				cursor.close();
+			}
+
+			db.close();
+			databaseHelper.close();
+		} catch (Exception e) {
+			if(Const.DEBUG) e.printStackTrace();
+		}
+		int after = getItemCount();
+
+		if(before == after) {
+			if(Const.DEBUG) System.out.println("no new items loaded: " + getItemCount());
+			shouldLoadMore = false;
+		}
+
+		if(getItemCount() > LIMIT) {
+			if(Const.DEBUG) System.out.println("reached the limit, not loading more items: " + getItemCount());
+			shouldLoadMore = false;
+		}
+
+		handler.post(() -> notifyDataSetChanged());
+	}*/
+
+	private void loadMore(long afterId, String s) {
+
+		if(!shouldLoadMore) {
+			if(Const.DEBUG) System.out.println("not loading more items");
+			return;
+		}
+
+		if(Const.DEBUG) System.out.println("loading more items");
+		int before = getItemCount();
+		try {
+			DatabaseHelper databaseHelper = new DatabaseHelper(context);
+			SQLiteDatabase db = databaseHelper.getReadableDatabase();
+			String selection = DatabaseHelper.PostedEntry._ID + " < ?";
+			Cursor cursor = db.query(DatabaseHelper.PostedEntry.TABLE_NAME,
+					new String[] {
+							DatabaseHelper.PostedEntry._ID,
+							DatabaseHelper.PostedEntry.COLUMN_NAME_CONTENT
+					},
+					selection,
+					new String[] {""+afterId},
+					null,
+					null,
+					DatabaseHelper.PostedEntry._ID + " DESC",
+					PAGE_SIZE);
+
+			if(cursor != null && cursor.moveToFirst()) {
+				for(int i = 0; i < cursor.getCount(); i++) {
+					JSONObject json = new JSONObject(cursor.getString(1));
+					String packageName = json.getString("packageName");
+					String appName = Util.getAppNameFromPackage(context, packageName, false);
+					String title = json.optString("title");
+					String text = json.optString("text");
+
+					//if(s==null || (s!=null && appName.contains(s))) {
+					if(appName.contains("하나알리미")) {
+						DataItem dataItem = new DataItem(context, cursor.getLong(0), cursor.getString(1));
+						String thisDate = dataItem.getDate();
+						if (lastDate.equals(thisDate)) {
+							dataItem.setShowDate(false);
+						}
+						lastDate = thisDate;
+
+						data.add(dataItem);
+					}
 					cursor.moveToNext();
 				}
 				cursor.close();

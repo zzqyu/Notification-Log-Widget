@@ -30,6 +30,7 @@ public class SettingsFragment extends PreferenceFragmentCompat {
 
 	private Preference prefStatus;
 	private Preference prefBrowse;
+	private Preference prefNewBrowse;
 	private Preference prefText;
 	private Preference prefOngoing;
 
@@ -51,6 +52,13 @@ public class SettingsFragment extends PreferenceFragmentCompat {
 		if(prefBrowse != null) {
 			prefBrowse.setOnPreferenceClickListener(preference -> {
 				startActivity(new Intent(getActivity(), BrowseActivity.class));
+				return true;
+			});
+		}
+		prefNewBrowse = pm.findPreference(Const.PREF_NEW_BROWSE);
+		if(prefNewBrowse != null) {
+			prefNewBrowse.setOnPreferenceClickListener(preference -> {
+				startActivity(new Intent(getActivity(), NewBrowseActivity.class));
 				return true;
 			});
 		}
@@ -125,6 +133,7 @@ public class SettingsFragment extends PreferenceFragmentCompat {
 			long numRowsPosted = DatabaseUtils.queryNumEntries(db, DatabaseHelper.PostedEntry.TABLE_NAME);
 			int stringResource = numRowsPosted == 1 ? R.string.settings_browse_summary_singular : R.string.settings_browse_summary_plural;
 			prefBrowse.setSummary(getString(stringResource, numRowsPosted));
+			prefNewBrowse.setSummary(getString(stringResource, numRowsPosted));
 		} catch (Exception e) {
 			if(Const.DEBUG) e.printStackTrace();
 		}

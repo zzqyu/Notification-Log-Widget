@@ -6,6 +6,7 @@
 
     <!-- Activities -->
     <string name="activity_browse">Browse</string>
+    <string name="activity_new_browse">New Browse</string>
     <string name="activity_details">Details</string>
 
     <!-- Menu -->
@@ -26,6 +27,7 @@
 
     <!-- Browse -->
     <string name="settings_browse">Browse Notifications</string>
+    <string name="settings_new_browse">New Browse Notifications</string>
     <string name="settings_browse_summary_singular">%1$d notification</string>
     <string name="settings_browse_summary_plural">%1$d notifications</string>
 

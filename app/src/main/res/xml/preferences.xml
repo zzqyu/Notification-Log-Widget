@@ -15,6 +15,12 @@
         android:summary="-"
         app:iconSpaceReserved="false" />
 
+    <androidx.preference.Preference
+        android:key="pref_new_browse"
+        android:title="@string/settings_new_browse"
+        android:summary="-"
+        app:iconSpaceReserved="false" />
+
     <androidx.preference.SwitchPreference
         android:key="pref_text"
         android:title="@string/settings_text"
