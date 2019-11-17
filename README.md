@@ -13,6 +13,6 @@
 
 테스트완료은행: 하나, 국민, 농협
 
-[![Play Store Link](https://play.google.com/store/apps/details?id=com.dolapps.bank_noti_widget)](./playstore.jpg)
+<a href="https://play.google.com/store/apps/details?id=com.dolapps.bank_noti_widget"><img src="./playstore.jpg" width="30%"/></a>
 
 ![데모 위젯 실행 결과](./Screenshot_20191116-223629.jpg)
