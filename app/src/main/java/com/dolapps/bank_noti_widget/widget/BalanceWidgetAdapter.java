@@ -21,7 +21,6 @@ import com.dolapps.bank_noti_widget.misc.Util;
 import java.text.DecimalFormat;
 import java.util.HashMap;
 
-import static com.dolapps.bank_noti_widget.ui.BrowseAdapter.iconCache;
 
 public class BalanceWidgetAdapter implements RemoteViewsService.RemoteViewsFactory {
     private Context context;
@@ -92,15 +91,10 @@ public class BalanceWidgetAdapter implements RemoteViewsService.RemoteViewsFacto
 
         //TODO: set app icon
         Drawable d = null;
-        if(iconCache.containsKey(packageName) && iconCache.get(packageName) != null) {
-            d = iconCache.get(packageName);
-            assert d != null;
-        } else {
-            try {
-                d = context.getPackageManager().getApplicationIcon(packageName);
-            }catch (Exception e){
-                d = context.getDrawable(R.mipmap.ic_launcher_round);
-            }
+        try {
+            d = context.getPackageManager().getApplicationIcon(packageName);
+        }catch (Exception e){
+            d = context.getDrawable(R.mipmap.ic_launcher_round);
         }
         views.setImageViewBitmap(R.id.item_icon, getBitmap(d));
         views.setOnClickFillInIntent(R.id.widget_item_root, intent);
