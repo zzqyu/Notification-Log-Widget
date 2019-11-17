@@ -5,15 +5,15 @@
     <shortcut
         android:shortcutId="browse"
         android:enabled="true"
-        android:icon="@mipmap/ic_launcher"
+        android:icon="@mipmap/ic_launcher_round"
         android:shortcutShortLabel="@string/activity_browse"
         android:shortcutLongLabel="@string/activity_browse"
         android:shortcutDisabledMessage="@string/activity_browse"
         tools:targetApi="n_mr1">
         <intent
             android:action="android.intent.action.VIEW"
-            android:targetPackage="org.hcilab.projects.nlogx"
-            android:targetClass="org.hcilab.projects.nlogx.ui.BrowseActivity" />
+            android:targetPackage="com.dolapps.bank_noti_widget"
+            android:targetClass="com.dolapps.bank_noti_widget.ui.BrowseActivity" />
     </shortcut>
 
 </shortcuts>

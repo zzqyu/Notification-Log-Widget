@@ -5,11 +5,11 @@ android {
     buildToolsVersion "29.0.2"
 
     defaultConfig {
-        applicationId "org.hcilab.projects.nlogx"
-        minSdkVersion 19
+        applicationId 'com.dolapps.bank_noti_widget'
+        minSdkVersion 23
         targetSdkVersion 29
-        versionCode 11
-        versionName "1.7"
+        versionCode 101
+        versionName '1.0.1'
     }
 
     buildTypes {
@@ -33,4 +33,5 @@ dependencies {
     implementation 'androidx.swiperefreshlayout:swiperefreshlayout:1.0.0'
     implementation 'com.google.android.material:material:1.1.0-alpha09'
     implementation 'com.google.android.gms:play-services-location:17.0.0'
+    implementation 'com.jaredrummler:colorpicker:1.1.0'
 }

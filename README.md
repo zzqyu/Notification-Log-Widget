@@ -3,11 +3,16 @@
  https://github.com/alwise/Notification-Log-Widget
 
  # 은행 계좌 잔고 위젯
+![홍보배너](./banner3.jpg)
+
 위 깃허브 소스를 기반으로 만들었습니다. 
 
-데모로 하나은행의 어플리케이션인 "하나알리미"를 기준으로 만들었습니다. 
+은행 계좌에 입송금으로 인해 발생하는 Notification을 Parsing 하여 위젯으로 정리해 표출하는 어플리케이션 입니다. 
 
-은행 계좌에 입송금으로 인해 발생하는 Notification을 Parsing 하여
-위젯으로 정리해 표출하는 어플리케이션 입니다. 
+사용불가은행: 신한, 우리, 부산
 
-![데모 위젯 실행 결과](./KakaoTalk_20190916_221337235.jpg)
+테스트완료은행: 하나, 국민, 농협
+
+[![Play Store Link](https://play.google.com/store/apps/details?id=com.dolapps.bank_noti_widget)](./playstore.jpg)
+
+![데모 위젯 실행 결과](./Screenshot_20191116-223629.jpg)

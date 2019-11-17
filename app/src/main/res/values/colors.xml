@@ -3,7 +3,7 @@
 
     <color name="colorPrimary">#455a64</color>
     <color name="colorPrimaryDark">#263238</color>
-    <color name="colorAccent">#F4B400</color>
+    <color name="colorAccent">#65d4ab</color>
 
     <color name="colorDivider">#dcdcdc</color>
 
@@ -14,5 +14,8 @@
 
     <color name="colorBackgroundDanger">#C62828</color>
     <color name="colorBackgroundSuccess">#4285F4</color>
+
+    <color name="colorBackgroundWidget">#66000000</color>
+    <color name="colorTextWidget">#ffffff</color>
 
 </resources>

@@ -24,7 +24,7 @@
         android:layout_marginStart="9dp"
         android:layout_marginTop="9dp"
         android:contentDescription="item icon"
-        android:src="@mipmap/ic_launcher_round"
+        android:src="@drawable/ic_noti"
         tools:ignore="HardcodedText" />
 
     <FrameLayout
@@ -32,7 +32,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:padding="10dp"
+        android:padding="5dp"
         android:layout_marginLeft="42dp"
         android:layout_marginTop="4dp">
 
@@ -41,8 +41,8 @@
             android:layout_gravity="left"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textColor="#FFFFFF"
-            android:textSize="18sp"
+            android:textColor="@color/colorTextWidget"
+            android:textSize="16sp"
             tools:ignore="HardcodedText" />
 
         <TextView
@@ -50,8 +50,8 @@
             android:layout_gravity="right"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textColor="#FFFFFF"
-            android:textSize="18sp"
+            android:textColor="@color/colorTextWidget"
+            android:textSize="16sp"
             tools:ignore="HardcodedText" />
 
     </FrameLayout>
@@ -63,10 +63,9 @@
         android:layout_below="@+id/widget_item_title"
         android:layout_alignStart="@+id/widget_item_title"
         android:ellipsize="end"
-        android:maxLines="3"
         android:padding="3dp"
         android:layout_marginLeft="7dp"
-        android:textColor="#FFFFFF"
-        android:textSize="14sp"
+        android:textColor="@color/colorTextWidget"
+        android:textSize="12sp"
         tools:ignore="HardcodedText" />
 </RelativeLayout>

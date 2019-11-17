@@ -7,7 +7,7 @@
     tools:context=".ui.MainActivity">
 
     <fragment
-        android:name="org.hcilab.projects.nlogx.ui.SettingsFragment"
+        android:name="com.dolapps.bank_noti_widget.ui.SettingsFragment"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:tag=".ui.SettingsFragment" />

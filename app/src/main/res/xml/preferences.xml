@@ -3,49 +3,61 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <androidx.preference.Preference
-        android:key="pref_status"
-        android:title="@string/settings_status"
-        android:summary="@string/settings_notification_access_unknown"
-        app:iconSpaceReserved="false" />
+    <androidx.preference.PreferenceCategory
+        android:title="기능"
+        android:layout="@layout/layout_preference_category"
+        app:iconSpaceReserved="false">
+        <androidx.preference.Preference
+            android:key="pref_status"
+            android:title="@string/settings_status"
+            android:summary="@string/settings_notification_access_unknown"
+            app:iconSpaceReserved="false" />
 
-    <androidx.preference.Preference
-        android:key="pref_browse"
-        android:title="@string/settings_browse"
-        android:summary="-"
-        app:iconSpaceReserved="false" />
+        <androidx.preference.Preference
+            android:key="pref_applist"
+            android:title="@string/settings_applist"
+            android:summary="@string/settings_applist_summary"
+            app:iconSpaceReserved="false" />
 
-    <androidx.preference.Preference
-        android:key="pref_new_browse"
-        android:title="@string/settings_new_browse"
-        android:summary="-"
-        app:iconSpaceReserved="false" />
 
-    <androidx.preference.SwitchPreference
-        android:key="pref_text"
-        android:title="@string/settings_text"
-        android:summary="@string/settings_text_summary"
-        android:defaultValue="true"
-        app:iconSpaceReserved="false" />
+        <androidx.preference.Preference
+            android:key="pref_browse"
+            android:title="@string/settings_browse"
+            android:summary="은행 어플 알림을 받으면 계좌 잔액이 저장됩니다. "
+            app:iconSpaceReserved="false" />
+    </androidx.preference.PreferenceCategory>
+    <androidx.preference.PreferenceCategory
+        android:title="위젯"
+        android:layout="@layout/layout_preference_category"
+        app:iconSpaceReserved="false">
+        <com.jaredrummler.android.colorpicker.ColorPreferenceCompat
+            android:key="pref_color1"
+            android:title="@string/settings_color1"
+            app:cpv_showAlphaSlider="true"
+            app:iconSpaceReserved="false"/>
+        <com.jaredrummler.android.colorpicker.ColorPreferenceCompat
+            android:key="pref_color2"
+            android:title="@string/settings_color2"
+            app:iconSpaceReserved="false"/>
+    </androidx.preference.PreferenceCategory>
 
-    <androidx.preference.SwitchPreference
-        android:key="pref_ongoing"
-        android:title="@string/settings_ongoing"
-        android:summary="@string/settings_ongoing_summary"
-        android:defaultValue="false"
-        app:iconSpaceReserved="false" />
+    <androidx.preference.PreferenceCategory
+        android:title="정보"
+        android:layout="@layout/layout_preference_category"
+        app:iconSpaceReserved="false">
 
-    <androidx.preference.Preference
-        android:key="pref_about"
-        android:title="@string/settings_about"
-        android:summary="@string/settings_about_summary"
-        app:iconSpaceReserved="false" />
+        <androidx.preference.Preference
+            android:key="pref_about"
+            android:title="@string/settings_about"
+            android:summary="@string/settings_about_summary"
+            app:iconSpaceReserved="false" />
 
-    <androidx.preference.Preference
-        android:key="pref_version"
-        android:title="@string/settings_version"
-        android:summary="0"
-        android:enabled="false"
-        app:iconSpaceReserved="false" />
+        <androidx.preference.Preference
+            android:key="pref_version"
+            android:title="@string/settings_version"
+            android:summary="0"
+            android:enabled="false"
+            app:iconSpaceReserved="false" />
+    </androidx.preference.PreferenceCategory>
 
 </androidx.preference.PreferenceScreen>
