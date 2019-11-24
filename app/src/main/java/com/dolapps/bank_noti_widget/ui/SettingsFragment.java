@@ -13,10 +13,13 @@ import android.os.Bundle;
 import android.util.Log;
 import android.widget.Toast;
 
+import androidx.annotation.Nullable;
 import androidx.localbroadcastmanager.content.LocalBroadcastManager;
+import androidx.preference.CheckBoxPreference;
 import androidx.preference.Preference;
 import androidx.preference.PreferenceFragmentCompat;
 import androidx.preference.PreferenceManager;
+import androidx.preference.SwitchPreference;
 
 import com.dolapps.bank_noti_widget.BuildConfig;
 import com.dolapps.bank_noti_widget.R;
@@ -36,6 +39,7 @@ public class SettingsFragment extends PreferenceFragmentCompat {
 	private Preference prefStatus;
 	private Preference prefBrowse;
 	private Preference prefAppList;
+	private CheckBoxPreference prefWidgetLock;
 	private ColorPreferenceCompat prefColor1;
 	private ColorPreferenceCompat prefColor2;
 	private SharedPreferences pref;
@@ -73,7 +77,25 @@ public class SettingsFragment extends PreferenceFragmentCompat {
 				return true;
 			});
 		}
+		Log.i("pref.getString","!"+pref.getString("password", ""));
+		Log.i("pref.getString","!"+!pref.getString("password", "").equals(""));
+		prefWidgetLock = pm.findPreference(Const.PREF_WIDGET_LOCK);
+		prefWidgetLock.setChecked(!pref.getString("password", "").equals(""));
+		prefWidgetLock.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
+			@Override
+			public boolean onPreferenceClick(Preference preference) {
+				Log.i("onPreferenceChange",prefWidgetLock.isChecked()+"");
+				//prefWidgetLock.setChecked(!(boolean)newValue);
+				Intent it = new Intent(getActivity(), LockActivity.class);
+				if(!prefWidgetLock.isChecked()){
+					it.putExtra("state", 2);
 
+				}
+				prefWidgetLock.setChecked(!prefWidgetLock.isChecked());
+				getActivity().startActivityForResult(it, 999);
+				return true;
+			}
+		});
 		Preference.OnPreferenceChangeListener cl = new Preference.OnPreferenceChangeListener() {
 			@Override public boolean onPreferenceChange(Preference preference, Object newValue) {
 				int newColor = (int) newValue;
@@ -116,6 +138,23 @@ public class SettingsFragment extends PreferenceFragmentCompat {
 			prefVersion.setSummary(BuildConfig.VERSION_NAME);
 		}
 
+	}
+
+	@Override
+	public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+		super.onActivityResult(requestCode, resultCode, data);
+		Log.i("onActivityResult", requestCode +"/"+resultCode);
+		//off
+		if(requestCode==111||resultCode==111){
+			prefWidgetLock.setChecked(false);
+			SharedPreferences.Editor editor = pref.edit();// editor에 put 하기
+			editor.putString("password", "");
+			editor.commit(); //완료한다.
+		}
+		//on
+		else if(requestCode==222||resultCode==222){
+			prefWidgetLock.setChecked(true);
+		}
 	}
 
 	@Override
@@ -163,7 +202,7 @@ public class SettingsFragment extends PreferenceFragmentCompat {
 			long numRowsPosted = DatabaseUtils.queryNumEntries(db, NotiDatabaseHelper.PostedEntry.TABLE_NAME);
 			int stringResource = R.string.settings_browse_summary;
 			if(stringResource>0) prefBrowse.setSummary(getString(stringResource, numRowsPosted));
-			int cnt = (pref.getAll().size()-3);
+			int cnt = (pref.getAll().size()-4);
 			if(cnt> 0)
 				prefAppList.setSummary(getString(R.string.settings_applist_summary1, cnt));
 			if(Util.isNotificationAccessEnabled(getActivity())&&cnt==0){

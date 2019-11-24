@@ -34,7 +34,8 @@
     <string name="settings_browse">저장된 계좌 목록</string>
     <string name="settings_browse_summary">%1$d 개의 계좌</string>
 
-    <!-- color -->
+    <!-- widget -->
+    <string name="settings_widget_lock">위젯 잠금 보안</string>
     <string name="settings_color1">배경 색상</string>
     <string name="settings_color2">글자 색상</string>
 

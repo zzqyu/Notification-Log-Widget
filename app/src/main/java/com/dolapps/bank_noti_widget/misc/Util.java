@@ -13,6 +13,7 @@ import android.os.Build;
 import android.os.LocaleList;
 import android.os.PowerManager;
 import android.provider.Settings;
+import android.widget.Toast;
 
 import androidx.core.content.PermissionChecker;
 
@@ -203,14 +204,9 @@ public class Util {
 		return "undefined";
 	}
 
-	public static String[] getAccountBalance(String packageName, String jsonString){
-		//packageName.equals("com.kebhana.hanapush")
-		/*if(){
-			String[] infoItems = jsonString.split(" ");
-			String account =infoItems[7];
-			String balance =infoItems[4].replace(",", "").replace("원", "");
-			return new String[]{account, balance};
-		}*/
+	public static String[] getAccountBalance(Context context, String packageName, String jsonString){
+		String[] result=null;
+		String reason = "";
 		Pattern p = Pattern.compile("잔액[0-9, ]+");
 		Matcher m = p.matcher(jsonString);
 		String balance="", account="";
@@ -218,14 +214,28 @@ public class Util {
 			balance = m.group();
 			balance = balance.replaceAll("[^0-9]", "");
 		}
-		else return null;
-		p = Pattern.compile("[0-9*-]{11,17}+");
-		m = p.matcher(jsonString);
+		else {
+			reason+="잔액";
+		}
+		if(packageName.equals("com.kakaobank.channel")){
+			p = Pattern.compile("[가-힣* ]+[0-9()]{6}");//홍*동(1234)
+			m = p.matcher(jsonString);
+		}
+		else{
+			p = Pattern.compile("[0-9*-]{11,17}+");
+			m = p.matcher(jsonString);
+		}
 		if(m.find()){
 			account = m.group();
 		}
-		else return null;
-		return new String[]{account, balance};
+		else{
+			reason+=(reason.equals("")?"":"과 ")+" 계좌번호";
+		}
+		if(!reason.equals("")){
+			Toast.makeText(context, Util.getAppNameFromPackage(context, packageName, false)+"의 알림에 "+reason.equals("")+" 표시가 없어 사용할 수 없습니다. ", Toast.LENGTH_SHORT).show();
+		}
+		else result = new String[]{account, balance};
+		return result;
 	}
 }
 /*

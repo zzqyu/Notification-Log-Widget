@@ -10,6 +10,13 @@
         android:name="com.dolapps.bank_noti_widget.ui.SettingsFragment"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:tag=".ui.SettingsFragment" />
+        android:tag=".ui.SettingsFragment"
+        android:layout_marginBottom="50dp"/>
+
+    <com.kakao.adfit.ads.ba.BannerAdView
+        android:id="@+id/ad"
+        android:layout_gravity="bottom|center"
+        android:layout_width="match_parent"
+        android:layout_height="50dp" />
 
 </FrameLayout>

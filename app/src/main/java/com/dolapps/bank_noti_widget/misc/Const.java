@@ -17,6 +17,7 @@ public class Const {
 	public static final String PREF_BROWSE  = "pref_browse";
 	public static final String PREF_ABOUT   = "pref_about";
 	public static final String PREF_VERSION = "pref_version";
+	public static final String PREF_WIDGET_LOCK = "pref_widget_lock";
 	public static final String PREF_COLOR1 = "pref_color1";
 	public static final String PREF_COLOR2 = "pref_color2";
 

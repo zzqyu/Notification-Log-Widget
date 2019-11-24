@@ -86,8 +86,11 @@ public class BalanceWidgetAdapter implements RemoteViewsService.RemoteViewsFacto
             allBalance+=item.get(account);
         }
 
+
         views.setTextViewText(R.id.widget_bank_balance, df.format(allBalance)+"원");//set app name
         views.setTextViewText(R.id.widget_item_text,itemText);//set preview/text
+
+        Log.i("BalanceWidgetAdapter", appName + " " + df.format(allBalance)+"원" +" "+ itemText);
 
         //TODO: set app icon
         Drawable d = null;
@@ -154,6 +157,8 @@ public class BalanceWidgetAdapter implements RemoteViewsService.RemoteViewsFacto
 
                         String key = appName + "!!!!!!" + packageName;
 
+                        Log.i("BalanceWidgetAdapter", "key: " + key + " value: " + account + " " + balance);
+
                         if (!mItems.containsKey(key))
                             mItems.put(key, new HashMap<>());
 
@@ -170,7 +175,7 @@ public class BalanceWidgetAdapter implements RemoteViewsService.RemoteViewsFacto
             databaseHelper.close();
 
         } catch (Exception e) {
-            if(Const.DEBUG) e.printStackTrace();
+            Log.getStackTraceString(e);
         }
 
 

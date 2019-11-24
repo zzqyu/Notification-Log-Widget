@@ -130,7 +130,7 @@ public class AppListAdapter extends RecyclerView.Adapter<AppListViewHolder> {
 				try {
 					ApplicationInfo appinfo = context.getPackageManager().getApplicationInfo(packageName[0], PackageManager.GET_META_DATA);
 					String name = context.getPackageManager().getApplicationLabel(appinfo).toString();
-					filteredList.add(new AppItem(context, name, packageName[0]));
+					filteredList.add(0, new AppItem(context, name, packageName[0]));
 					isExist = true;
 				}catch (Exception e){}
 			}
@@ -141,7 +141,7 @@ public class AppListAdapter extends RecyclerView.Adapter<AppListViewHolder> {
 		}
 	}
 
-	private void saveCheck(String packageName, boolean isCk){
+	public void saveCheck(String packageName, boolean isCk){
 		SharedPreferences.Editor editor = pref.edit();// editor에 put 하기
 		int cnt = pref.getInt("CNT", 0);
 		if(isCk) {

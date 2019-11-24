@@ -30,6 +30,11 @@
         android:title="위젯"
         android:layout="@layout/layout_preference_category"
         app:iconSpaceReserved="false">
+        <androidx.preference.CheckBoxPreference
+            android:key="pref_widget_lock"
+            android:title="@string/settings_widget_lock"
+            app:cpv_showAlphaSlider="true"
+            app:iconSpaceReserved="false"/>
         <com.jaredrummler.android.colorpicker.ColorPreferenceCompat
             android:key="pref_color1"
             android:title="@string/settings_color1"
