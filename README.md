@@ -9,9 +9,9 @@
 
 은행 계좌에 입송금으로 인해 발생하는 Notification을 Parsing 하여 위젯으로 정리해 표출하는 어플리케이션 입니다. 
 
-사용불가은행: 신한, 우리, 부산
+사용불가은행: 신한, 부산
 
-테스트완료은행: 하나, 국민, 농협
+테스트완료은행: 하나, 국민, 농협, 카카오, sc제일, 우리
 
 <a href="https://play.google.com/store/apps/details?id=com.dolapps.bank_noti_widget"><img src="./playstore.jpg" width="30%"/></a>
 
