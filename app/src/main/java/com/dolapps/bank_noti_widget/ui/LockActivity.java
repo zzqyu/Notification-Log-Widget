@@ -2,19 +2,15 @@ package com.dolapps.bank_noti_widget.ui;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.*;
+import androidx.core.app.ActivityCompat;
 
-import android.app.PendingIntent;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.os.SystemClock;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
-import android.view.KeyEvent;
-import android.view.MotionEvent;
 import android.view.View;
-import android.view.inputmethod.InputMethodManager;
 import android.widget.Toast;
 
 import com.dolapps.bank_noti_widget.R;
@@ -30,28 +26,26 @@ public class LockActivity extends AppCompatActivity {
     private String[] pws = new String[3];
     private boolean isModi = true;
     private boolean isWidget = false;
-    private InputMethodManager imm;
+    private boolean isMain = false;
+    private LinearLayoutCompat keypad;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_set_lock);
+        setContentView(R.layout.activity_lock);
 
         isWidget = getIntent().getBooleanExtra("isWidget", false);
+        isMain = getIntent().getBooleanExtra("isMain", false);
 
         imgs = new AppCompatImageView[]{findViewById(R.id.indicate1), findViewById(R.id.indicate2), findViewById(R.id.indicate3), findViewById(R.id.indicate4), null};
         et = findViewById(R.id.invisibleEditText);
         et.clearFocus();
-        imm = (InputMethodManager) getSystemService(INPUT_METHOD_SERVICE);
         et.requestFocus();
-        imm.toggleSoftInput(InputMethodManager.SHOW_FORCED, InputMethodManager.SHOW_IMPLICIT);
 
 
         state = getIntent().getIntExtra("state", 0);
 
         pref= this.getSharedPreferences("bankNotiWidget", this.MODE_PRIVATE); // 선언
         String tmp = pref.getString("password", "");
-        Log.i("pref.getString2",tmp);
-        Log.i("!!!!!!!!!!","!!!!!!!!!!!");
         if(state!=2) {
             if (tmp.equals("")) state = 1;
         }
@@ -64,8 +58,33 @@ public class LockActivity extends AppCompatActivity {
         tv = findViewById(R.id.title);
         tv.setText(titles[state]);
 
-
-
+        keypad = findViewById(R.id.num_keypad);
+        View.OnClickListener listener = new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                AppCompatButton button = (AppCompatButton)v;
+                et.setText(et.getText().toString() + button.getText());
+                et.setSelection(et.length());
+            }
+        };
+        for(int i = 0; i < keypad.getChildCount()-1; i++){
+            LinearLayoutCompat row = (LinearLayoutCompat)keypad.getChildAt(i);
+            for(int j = 0; j < row.getChildCount(); j++){
+                AppCompatButton button = (AppCompatButton)row.getChildAt(j);
+                button.setOnClickListener(listener);
+            }
+        }
+        ((LinearLayoutCompat)keypad.getChildAt(keypad.getChildCount()-1)).getChildAt(1).setOnClickListener(listener);
+        ((LinearLayoutCompat)keypad.getChildAt(keypad.getChildCount()-1))
+                .getChildAt(2).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(et.length()>0) {
+                    et.setText(et.getText().toString().substring(0, et.length() - 1));
+                    et.setSelection(et.length());
+                }
+            }
+        });
 
         et.addTextChangedListener(new TextWatcher() {
             @Override
@@ -82,28 +101,16 @@ public class LockActivity extends AppCompatActivity {
                     et.setSelection(et.length());
                 }
                 else {
-                    if(imgs[start]!=null&&count!=4) {
-                        if (before == 0) {
-                            imgs[start].setImageDrawable(getDrawable(R.drawable.ic_input));
+                    if(count<=4 && before<=4) {
+                        if (before < count) {
+                            imgs[before].setImageDrawable(getDrawable(R.drawable.ic_input));
                         } else {
-                            imgs[start].setImageDrawable(getDrawable(R.drawable.ic_not_input));
+                            imgs[count].setImageDrawable(getDrawable(R.drawable.ic_not_input));
                         }
                     }
                 }
-            }
-
-            @Override
-            public void afterTextChanged(Editable s) {
-
-            }
-        });
-        et.setOnKeyListener(new View.OnKeyListener() {
-            @Override
-            public boolean onKey(View v, int keyCode, KeyEvent event) {
-                //Enter key Action
-                if ((event.getAction() == KeyEvent.ACTION_DOWN) && (keyCode == KeyEvent.KEYCODE_ENTER)) {
+                if(s.length()==4){
                     et.clearFocus();
-                    imm.toggleSoftInput(InputMethodManager.HIDE_IMPLICIT_ONLY, 0);
                     String inputString = et.getText().toString();
                     et.setText("");
                     et.setSelection(et.length());
@@ -117,7 +124,6 @@ public class LockActivity extends AppCompatActivity {
                             Toast.makeText(LockActivity.this, "비밀번호를 틀렸습니다. 다시 입력하세요. ", Toast.LENGTH_LONG).show();
                         }
                         et.requestFocus();
-                        imm.toggleSoftInput(InputMethodManager.SHOW_FORCED, InputMethodManager.HIDE_IMPLICIT_ONLY);
                     }
                     else if(state == 1){
                         if(inputString.length()!=4){
@@ -129,7 +135,6 @@ public class LockActivity extends AppCompatActivity {
                             state++;
                         }
                         et.requestFocus();
-                        imm.toggleSoftInput(InputMethodManager.SHOW_FORCED, InputMethodManager.HIDE_IMPLICIT_ONLY);
                     }
                     else{
                         if(pws[1].equals(inputString)){
@@ -147,8 +152,7 @@ public class LockActivity extends AppCompatActivity {
                                 broadIntent.setAction(BalanceWidget.ACTION_UNLOCK_SUCESS);
                                 getBaseContext().sendBroadcast(broadIntent);
                                 if(isWidget){
-                                    moveTaskToBack(true);
-                                    finish();
+                                    onBackPressed();
                                 }
                                 else{
                                     LockActivity.this.setResult(111);
@@ -158,37 +162,34 @@ public class LockActivity extends AppCompatActivity {
                         }
                         else{
                             Toast.makeText(LockActivity.this, "비밀번호를 틀렸습니다. 다시 입력하세요. ", Toast.LENGTH_LONG).show();
-                            imm.toggleSoftInput(InputMethodManager.SHOW_FORCED, InputMethodManager.HIDE_IMPLICIT_ONLY);
                             et.requestFocus();
-                            imm.toggleSoftInput(InputMethodManager.SHOW_FORCED, InputMethodManager.HIDE_IMPLICIT_ONLY);
                         }
                     }
                     tv.setText(titles[state]);
-                    return true;
                 }
-                return false;
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
             }
         });
 
-        if(isWidget){
-            Log.i("isWidget", isWidget+"");
-            Log.i("isWidget", "et.isFocused(): "+ et.isFocused());
-            Log.i("isWidget", "imm: "+ imm.isActive());
-            et.clearFocus();
-
-            Log.i("isWidget", "et.isFocused(): "+ et.isFocused());
-            Log.i("isWidget", "imm: "+ imm.isActive());
-            et.requestFocus();
-            imm = (InputMethodManager) getSystemService(INPUT_METHOD_SERVICE);
-            imm.toggleSoftInput(InputMethodManager.SHOW_FORCED, InputMethodManager.SHOW_IMPLICIT);
-
-            Log.i("isWidget", "et.isFocused(): "+ et.isFocused());
-            Log.i("isWidget", "imm: "+ imm.isActive());
-        }
     }
 
     @Override
     protected void onResume() {
         super.onResume();
-}
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        if(isWidget||isMain){
+            ActivityCompat.finishAffinity(this);
+        }
+        else{
+            finish();
+        }
+    }
 }

@@ -1,7 +1,5 @@
 package com.dolapps.bank_noti_widget.widget;
 
-
-import android.app.ActivityOptions;
 import android.app.PendingIntent;
 import android.appwidget.AppWidgetManager;
 import android.appwidget.AppWidgetProvider;
@@ -10,18 +8,11 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.util.Log;
-import android.util.Pair;
 import android.view.View;
-import android.widget.FrameLayout;
-import android.widget.ImageView;
 import android.widget.RemoteViews;
 import android.widget.Toast;
-
-import androidx.core.graphics.drawable.DrawableCompat;
-
 import com.dolapps.bank_noti_widget.R;
 import com.dolapps.bank_noti_widget.misc.Const;
-import com.dolapps.bank_noti_widget.ui.BrowseActivity;
 import com.dolapps.bank_noti_widget.ui.LockActivity;
 
 
@@ -86,13 +77,14 @@ public class BalanceWidget extends AppWidgetProvider {
 
         views.setTextViewText(R.id.widget_title, "은행별 잔고");//set app title on widget
         views.setTextColor(R.id.widget_title, c2);//set app title on widget
+        views.setInt(R.id.widget_lock, "setColorFilter", c2);
+        views.setInt(R.id.widget_unlock, "setColorFilter", c2);
         views.setInt(R.id.widget_bg, "setBackgroundColor", c1);
         //TODO: set adapter to list
         views.setRemoteAdapter(R.id.widget_balance_list_view,new Intent(context,BalanceWidgetService.class));
 
         //TODO: launch browser activity
-        views.setPendingIntentTemplate(R.id.widget_balance_list_view, PendingIntent.getActivity(context, appWidgetId,
-                new Intent(context, BrowseActivity.class), PendingIntent.FLAG_UPDATE_CURRENT));
+       // views.setPendingIntentTemplate(R.id.widget_balance_list_view, PendingIntent.getActivity(context, appWidgetId,new Intent(context, BrowseActivity.class), PendingIntent.FLAG_UPDATE_CURRENT));
 
 
         //TODO: Instruct the widget manager to update the widget
@@ -125,8 +117,7 @@ public class BalanceWidget extends AppWidgetProvider {
         views.setRemoteAdapter(R.id.widget_balance_list_view,new Intent(context,BalanceWidgetService.class));
 
         //TODO: launch browser activity
-        views.setPendingIntentTemplate(R.id.widget_balance_list_view, PendingIntent.getActivity(context, widgetId,
-                new Intent(context, BrowseActivity.class), PendingIntent.FLAG_UPDATE_CURRENT));
+        //views.setPendingIntentTemplate(R.id.widget_balance_list_view, PendingIntent.getActivity(context, widgetId,new Intent(context, BrowseActivity.class), PendingIntent.FLAG_UPDATE_CURRENT));
 
 
         manager.updateAppWidget(widgetId, views);
@@ -179,7 +170,7 @@ public class BalanceWidget extends AppWidgetProvider {
         }
         else if(intent.getAction().equals(ACTION_LOCK)){
             if(pref.getString("password", "").equals("")){
-                Toast.makeText(context, "은행잔고위젯에서 잠금기능을 설정하세요.", Toast.LENGTH_LONG).show();
+                Toast.makeText(context, "은행잔고위젯에서 잠금 기능을 설정하세요.", Toast.LENGTH_LONG).show();
             }
             else{
                 views.setViewVisibility(R.id.widget_bg, View.GONE);

@@ -222,7 +222,7 @@ public class Util {
 			m = p.matcher(jsonString);
 		}
 		else{
-			p = Pattern.compile("[0-9*-]{11,17}+");
+			p = Pattern.compile("[0-9*-]{10,17}+");
 			m = p.matcher(jsonString);
 		}
 		if(m.find()){

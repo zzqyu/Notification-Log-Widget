@@ -44,6 +44,13 @@ public class MainActivity extends AppCompatActivity {
 		//new NotificationHandler(this).updateBalance(NotiDatabaseHelper.PostedEntry.TABLE_NAME, "com.kebhana.hanapush","하나카드드드 출금 10,000원 잔액 10,000원 잔액10,000원 244-******-12345");
 		//new AppListAdapter(this).saveCheck("com.kebhana.hanapush", true);
 
+		if(!pref.getString("password","").equals("")){
+			Intent lock = new Intent(this, LockActivity.class);
+			lock.putExtra("state", 2);
+			lock.putExtra("isMain", true);
+			startActivity(lock);
+		}
+
 		ad = findViewById(R.id.ad);
 		ad.setClientId("DAN-1hrjrgf2qcdpe");
 		ad.setAdListener(new AdListener() {

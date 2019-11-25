@@ -16,8 +16,14 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.dolapps.bank_noti_widget.R;
+import com.dolapps.bank_noti_widget.misc.Const;
+import com.google.gson.Gson;
+
+import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 public class AppListAdapter extends RecyclerView.Adapter<AppListViewHolder> {
 
@@ -44,6 +50,7 @@ public class AppListAdapter extends RecyclerView.Adapter<AppListViewHolder> {
 
 		try {
 			vh.icon.setImageDrawable(context.getPackageManager().getApplicationIcon(item.getPackageName()));
+			vh.cb.setVisibility(View.VISIBLE);
 		} catch(Exception e) {
 			vh.icon.setImageDrawable(context.getDrawable(R.mipmap.ic_launcher_round));
 			vh.cb.setVisibility(View.GONE);
@@ -82,57 +89,20 @@ public class AppListAdapter extends RecyclerView.Adapter<AppListViewHolder> {
 	}
 
 
-	/*
-	신한, 우리, 부산
-	com.kebhana.hanapush 하나은행
-	com.kbstar.starpush 국민은행
-	com.nh.mobilenoti 농협은행
-	com.IBK.SmartPush.app 기업은행
-	kr.co.citibank.citimobile 씨티은행
-	kr.co.dgb.dgbfium DGB대구은행
-	SC제일은행 com.scbank.ma30
-	케이뱅크 com.kbankwith.smartbank
-	카카오뱅크 com.kakaobank.channel
-	새마을금고
-	산업은행 co.kr.kdb.android.smartkdb
-	수협 com.suhyup.pesmb
-	전북은행 kr.co.jbbank.smartbank
-	경남은행 com.knb.bsp
-	신협 com.cu.sbank
-	 */
-
 	private void load() {
-		String[][] pkgs = {{"com.kebhana.hanapush","하나은행"},
-				{"com.kbstar.starpush","국민은행"},
-				{"com.nh.mobilenoti","농협"},
-				{"com.IBK.SmartPush.app", "기업은행"},
-				{"kr.co.citibank.citimobile","씨티은행"},
-				{"kr.co.dgb.dgbfium","대구은행"},
-				{"com.scbank.ma30","SC제일은행"},
-				{"com.kbankwith.smartbank","케이뱅크"},
-				{"com.kakaobank.channel", "카카오뱅크"},
-				{"com.smg.mgnoti", "새마을금고"},
-				{"co.kr.kdb.android.smartkdb", "산업은행"},
-				{"com.suhyup.pesmb", "수협"},
-				{"kr.co.jbbank.smartbank", "전북은행"},
-				{"com.knb.bsp", "경남은행"},
-				{"com.cu.sbank", "신협"},
-		};
 		filteredList = new ArrayList<>();
 		boolean isExist = false;
-		for(String[] packageName: pkgs){
-			Intent intent = context.getPackageManager().getLaunchIntentForPackage(packageName[0]);
+		HashMap<String, String> map = new Gson().fromJson(Const.PACKAGE_APPNAME, new HashMap<String, String>().getClass());
+
+		for(String packageName: new ArrayList<String>(map.keySet())){
+			Intent intent = context.getPackageManager().getLaunchIntentForPackage(packageName);
 			if(intent==null){
 				//미설치
-				filteredList.add(new AppItem(context, packageName[1], packageName[0]));
+				filteredList.add(new AppItem(context,map.get(packageName), packageName));
 			}else{
 				//설치
-				try {
-					ApplicationInfo appinfo = context.getPackageManager().getApplicationInfo(packageName[0], PackageManager.GET_META_DATA);
-					String name = context.getPackageManager().getApplicationLabel(appinfo).toString();
-					filteredList.add(0, new AppItem(context, name, packageName[0]));
-					isExist = true;
-				}catch (Exception e){}
+				filteredList.add(0, new AppItem(context, map.get(packageName), packageName));
+				isExist = true;
 			}
 
 		}

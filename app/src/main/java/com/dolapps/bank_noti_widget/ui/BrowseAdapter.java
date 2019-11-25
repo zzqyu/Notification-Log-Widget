@@ -20,6 +20,7 @@ import com.dolapps.bank_noti_widget.R;
 import com.dolapps.bank_noti_widget.misc.Const;
 import com.dolapps.bank_noti_widget.misc.NotiDatabaseHelper;
 import com.dolapps.bank_noti_widget.misc.Util;
+import com.google.gson.Gson;
 
 import java.text.DecimalFormat;
 import java.util.ArrayList;
@@ -71,6 +72,7 @@ public class BrowseAdapter extends RecyclerView.Adapter<BrowseViewHolder> {
 	private void loadMore() {
 
 		try {
+			HashMap<String, String> map = new Gson().fromJson(Const.PACKAGE_APPNAME, new HashMap<String, String>().getClass());
 			NotiDatabaseHelper databaseHelper = new NotiDatabaseHelper(context);
 			SQLiteDatabase db = databaseHelper.getReadableDatabase();
 			Cursor cursor = db.query(NotiDatabaseHelper.PostedEntry.TABLE_NAME,
@@ -88,7 +90,8 @@ public class BrowseAdapter extends RecyclerView.Adapter<BrowseViewHolder> {
 			if(cursor != null && cursor.moveToFirst()) {
 				for(int i = 0; i < cursor.getCount(); i++) {
 					String packageName = cursor.getString(0);
-					String appName = Util.getAppNameFromPackage(context, packageName, false);
+					String appName = map.get(packageName);
+					if(appName==null)appName = Util.getAppNameFromPackage(context, packageName, false);
 					String account =cursor.getString(1);
 					long balance =cursor.getLong(2);
 					data.add(new Item(packageName, appName, account, balance));

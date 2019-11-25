@@ -1,0 +1,247 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".ui.LockActivity">
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginBottom="300dp"
+        android:layout_gravity="top"
+        android:orientation="vertical">
+
+        <androidx.appcompat.widget.LinearLayoutCompat
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:orientation="vertical">
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/title"
+                android:layout_height="wrap_content"
+                android:layout_width="match_parent"
+                android:text="비밀번호 입력"
+                android:textSize="24sp"
+                android:textColor="#111111"
+                android:textStyle="bold"
+                android:gravity="center"/>
+
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="30dp"
+                android:layout_marginLeft="30dp"
+                android:layout_marginRight="30dp">
+
+                <androidx.appcompat.widget.LinearLayoutCompat
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:gravity="center">
+                    <androidx.appcompat.widget.AppCompatImageView
+                        android:id="@+id/indicate1"
+                        android:layout_height="wrap_content"
+                        android:layout_width="wrap_content"
+                        android:layout_marginLeft="15dp"
+                        android:layout_marginRight="15dp"
+                        android:src="@drawable/ic_not_input"
+                        android:gravity="center"/>
+                    <androidx.appcompat.widget.AppCompatImageView
+                        android:id="@+id/indicate2"
+                        android:layout_height="wrap_content"
+                        android:layout_width="wrap_content"
+                        android:layout_marginLeft="15dp"
+                        android:layout_marginRight="15dp"
+                        android:src="@drawable/ic_not_input"
+                        android:gravity="center"/>
+                    <androidx.appcompat.widget.AppCompatImageView
+                        android:id="@+id/indicate3"
+                        android:layout_height="wrap_content"
+                        android:layout_width="wrap_content"
+                        android:layout_marginLeft="15dp"
+                        android:layout_marginRight="15dp"
+                        android:src="@drawable/ic_not_input"
+                        android:gravity="center"/>
+                    <androidx.appcompat.widget.AppCompatImageView
+                        android:id="@+id/indicate4"
+                        android:layout_height="wrap_content"
+                        android:layout_width="wrap_content"
+                        android:layout_marginLeft="15dp"
+                        android:layout_marginRight="15dp"
+                        android:src="@drawable/ic_not_input"
+                        android:gravity="center"/>
+                </androidx.appcompat.widget.LinearLayoutCompat>
+                <androidx.appcompat.widget.AppCompatEditText
+                    android:id="@+id/invisibleEditText"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:textColor="#00000000"
+                    android:background="#00000000"
+                    android:gravity="center"
+                    android:inputType="numberDecimal"
+                    android:maxLength="5"
+                    android:visibility="visible"
+                    android:cursorVisible="false"/>
+            </FrameLayout>
+        </androidx.appcompat.widget.LinearLayoutCompat>
+    </FrameLayout>
+
+    <androidx.appcompat.widget.LinearLayoutCompat
+        android:id="@+id/num_keypad"
+        android:layout_width="match_parent"
+        android:layout_height="300dp"
+        android:orientation="vertical"
+        android:layout_gravity="bottom">
+
+        <androidx.appcompat.widget.LinearLayoutCompat
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:orientation="horizontal">
+            <androidx.appcompat.widget.AppCompatButton
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:textColor="#333333"
+                android:layout_weight="1"
+                android:textSize="40dp"
+                android:background="#00000000"
+                android:gravity="center"
+                android:text="1"/>
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:textColor="#333333"
+                android:layout_weight="1"
+                android:textSize="40dp"
+                android:background="#00000000"
+                android:gravity="center"
+                android:text="2"/>
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:textColor="#333333"
+                android:layout_weight="1"
+                android:textSize="40dp"
+                android:background="#00000000"
+                android:gravity="center"
+                android:text="3"/>
+
+        </androidx.appcompat.widget.LinearLayoutCompat>
+        <androidx.appcompat.widget.LinearLayoutCompat
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:orientation="horizontal">
+            <androidx.appcompat.widget.AppCompatButton
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:textColor="#333333"
+                android:layout_weight="1"
+                android:textSize="40dp"
+                android:background="#00000000"
+                android:gravity="center"
+                android:text="4"/>
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:textColor="#333333"
+                android:layout_weight="1"
+                android:textSize="40dp"
+                android:background="#00000000"
+                android:gravity="center"
+                android:text="5"/>
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:textColor="#333333"
+                android:layout_weight="1"
+                android:textSize="40dp"
+                android:background="#00000000"
+                android:gravity="center"
+                android:text="6"/>
+
+        </androidx.appcompat.widget.LinearLayoutCompat>
+        <androidx.appcompat.widget.LinearLayoutCompat
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:orientation="horizontal">
+            <androidx.appcompat.widget.AppCompatButton
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:textColor="#333333"
+                android:layout_weight="1"
+                android:textSize="40dp"
+                android:background="#00000000"
+                android:gravity="center"
+                android:text="7"/>
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:textColor="#333333"
+                android:layout_weight="1"
+                android:textSize="40dp"
+                android:background="#00000000"
+                android:gravity="center"
+                android:text="8"/>
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:textColor="#333333"
+                android:layout_weight="1"
+                android:textSize="40dp"
+                android:background="#00000000"
+                android:gravity="center"
+                android:text="9"/>
+
+        </androidx.appcompat.widget.LinearLayoutCompat>
+        <androidx.appcompat.widget.LinearLayoutCompat
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:orientation="horizontal">
+            <androidx.appcompat.widget.AppCompatButton
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:textColor="#333333"
+                android:layout_weight="1"
+                android:textSize="40dp"
+                android:background="#00000000"
+                android:gravity="center"/>
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:textColor="#333333"
+                android:layout_weight="1"
+                android:textSize="40dp"
+                android:background="#00000000"
+                android:gravity="center"
+                android:text="0"/>
+
+            <androidx.appcompat.widget.AppCompatImageButton
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:textColor="#333333"
+                android:layout_weight="1"
+                android:textSize="40dp"
+                android:background="#00000000"
+                android:src="@drawable/ic_keyboard_backspace"
+                android:gravity="center"/>
+
+        </androidx.appcompat.widget.LinearLayoutCompat>
+
+
+    </androidx.appcompat.widget.LinearLayoutCompat>
+
+</FrameLayout>
