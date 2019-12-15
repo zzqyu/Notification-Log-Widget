@@ -7,6 +7,7 @@ import android.content.SharedPreferences;
 import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageManager;
 import android.net.Uri;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -48,21 +49,25 @@ public class AppListAdapter extends RecyclerView.Adapter<AppListViewHolder> {
 	public void onBindViewHolder(@NonNull AppListViewHolder vh, int position) {
 		AppItem item = filteredList.get(position);
 
+		vh.name.setText(item.getAppName());
+		vh.packageName.setText(item.getPackageName());
+
 		try {
 			vh.icon.setImageDrawable(context.getPackageManager().getApplicationIcon(item.getPackageName()));
 			vh.cb.setVisibility(View.VISIBLE);
+			vh.cb.setChecked(isChecked(item.getPackageName()));
+			vh.name.setTextColor(context.getColor(R.color.colorText));
 		} catch(Exception e) {
+			Log.getStackTraceString(e);
 			vh.icon.setImageDrawable(context.getDrawable(R.mipmap.ic_launcher_round));
 			vh.cb.setVisibility(View.INVISIBLE);
-			vh.card.setBackgroundColor(0xaaaaaa);
+			vh.name.setTextColor(context.getColor(R.color.colorPrefCateTitle));
 			SharedPreferences.Editor editor = pref.edit();
 			editor.remove(vh.packageName.getText().toString());
 			editor.commit();
 		}
 
-		vh.name.setText(item.getAppName());
-		vh.packageName.setText(item.getPackageName());
-		vh.cb.setChecked(isChecked(item.getPackageName()));
+
 
 		//Here it is simply write onItemClick listener here
 		vh.item.setOnClickListener(new View.OnClickListener() {

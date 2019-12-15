@@ -14,6 +14,14 @@
             android:layout="@layout/layout_preference_switch"
             app:iconSpaceReserved="false" />
 
+        <androidx.preference.CheckBoxPreference
+            android:key="pref_lock"
+            android:title="@string/settings_lock"
+            android:summary="@string/settings_lock_sum"
+            app:cpv_showAlphaSlider="true"
+            app:iconSpaceReserved="false"
+            android:layout="@layout/layout_preference_switch"/>
+
         <androidx.preference.Preference
             android:key="pref_applist"
             android:title="@string/settings_applist"
@@ -28,14 +36,6 @@
             android:summary="은행 어플 알림을 받으면 계좌 잔액이 저장됩니다. "
             app:iconSpaceReserved="false"
             android:layout="@layout/layout_preference_item"/>
-
-        <androidx.preference.CheckBoxPreference
-            android:key="pref_lock"
-            android:title="@string/settings_lock"
-            android:summary="@string/settings_lock_sum"
-            app:cpv_showAlphaSlider="true"
-            app:iconSpaceReserved="false"
-            android:layout="@layout/layout_preference_switch"/>
 
     </androidx.preference.PreferenceCategory>
     <androidx.preference.PreferenceCategory
