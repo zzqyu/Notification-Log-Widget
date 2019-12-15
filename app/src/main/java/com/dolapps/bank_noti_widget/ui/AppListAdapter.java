@@ -53,7 +53,11 @@ public class AppListAdapter extends RecyclerView.Adapter<AppListViewHolder> {
 			vh.cb.setVisibility(View.VISIBLE);
 		} catch(Exception e) {
 			vh.icon.setImageDrawable(context.getDrawable(R.mipmap.ic_launcher_round));
-			vh.cb.setVisibility(View.GONE);
+			vh.cb.setVisibility(View.INVISIBLE);
+			vh.card.setBackgroundColor(0xaaaaaa);
+			SharedPreferences.Editor editor = pref.edit();
+			editor.remove(vh.packageName.getText().toString());
+			editor.commit();
 		}
 
 		vh.name.setText(item.getAppName());
@@ -65,7 +69,7 @@ public class AppListAdapter extends RecyclerView.Adapter<AppListViewHolder> {
 			@Override
 			public void onClick(View v) {
 				if (position != RecyclerView.NO_POSITION) {
-					if(vh.cb.getVisibility()==View.GONE){
+					if(vh.cb.getVisibility()==View.INVISIBLE){
 						try {
 							context.startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("market://details?id=" + item.getPackageName())));
 						} catch (android.content.ActivityNotFoundException anfe) {

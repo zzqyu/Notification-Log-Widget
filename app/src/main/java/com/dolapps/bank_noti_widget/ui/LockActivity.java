@@ -3,6 +3,9 @@ package com.dolapps.bank_noti_widget.ui;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.*;
 import androidx.core.app.ActivityCompat;
+import androidx.lifecycle.Lifecycle;
+import androidx.lifecycle.LifecycleObserver;
+import androidx.lifecycle.OnLifecycleEvent;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -15,6 +18,8 @@ import android.widget.Toast;
 
 import com.dolapps.bank_noti_widget.R;
 import com.dolapps.bank_noti_widget.widget.BalanceWidget;
+import com.kakao.adfit.ads.AdListener;
+import com.kakao.adfit.ads.ba.BannerAdView;
 
 public class LockActivity extends AppCompatActivity {
     private AppCompatImageView[] imgs;
@@ -28,6 +33,8 @@ public class LockActivity extends AppCompatActivity {
     private boolean isWidget = false;
     private boolean isMain = false;
     private LinearLayoutCompat keypad;
+
+    private BannerAdView ad;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -147,10 +154,12 @@ public class LockActivity extends AppCompatActivity {
                                 LockActivity.this.finish();
                             }
                             else{
-                                Toast.makeText(LockActivity.this, "비밀번호가 확인되었습니다. ", Toast.LENGTH_LONG).show();
-                                Intent broadIntent = new Intent(getApplicationContext(), BalanceWidget.class);
-                                broadIntent.setAction(BalanceWidget.ACTION_UNLOCK_SUCESS);
-                                getBaseContext().sendBroadcast(broadIntent);
+                                if(!isMain) {
+                                    Toast.makeText(LockActivity.this, "비밀번호가 확인되었습니다. ", Toast.LENGTH_LONG).show();
+                                    Intent broadIntent = new Intent(getApplicationContext(), BalanceWidget.class);
+                                    broadIntent.setAction(BalanceWidget.ACTION_UNLOCK_SUCESS);
+                                    getBaseContext().sendBroadcast(broadIntent);
+                                }
                                 if(isWidget){
                                     onBackPressed();
                                 }
@@ -175,6 +184,42 @@ public class LockActivity extends AppCompatActivity {
             }
         });
 
+
+        ad = findViewById(R.id.lock_ad);
+        ad.setClientId("DAN-1hrjrgf2qcdpe");
+        ad.setAdListener(new AdListener() {
+            @Override
+            public void onAdLoaded() {
+                Log.i("AdListener", "onAdLoaded");
+            }
+
+            @Override
+            public void onAdFailed(int i) {
+                Log.i("AdListener", "onAdFailed: "+ i);
+            }
+
+            @Override
+            public void onAdClicked() {
+                Log.i("AdListener", "onAdFailed");
+            }
+        });
+        getLifecycle().addObserver(new LifecycleObserver() {
+            @OnLifecycleEvent(Lifecycle.Event.ON_RESUME)
+            public void onResume() {
+                ad.resume();
+            }
+
+            @OnLifecycleEvent(Lifecycle.Event.ON_PAUSE)
+            public void onPause() {
+                ad.pause();
+            }
+
+            @OnLifecycleEvent(Lifecycle.Event.ON_DESTROY)
+            public void onDestroy() {
+                ad.destroy();
+            }
+        });
+        ad.loadAd();
     }
 
     @Override

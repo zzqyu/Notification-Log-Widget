@@ -1,19 +1,27 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.cardview.widget.CardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
               xmlns:tools="http://schemas.android.com/tools"
-              android:orientation="vertical"
-              android:layout_width="match_parent"
-              android:layout_height="wrap_content">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:minHeight="64dp"
+    android:layout_marginRight="5dp"
+    android:layout_marginLeft="5dp"
+    android:background="@android:color/white"
+    android:layout_marginBottom="5dp"
+    app:cardCornerRadius="32dp"
+    app:contentPaddingLeft="10dp"
+    android:id="@+id/a_card">
 
     <LinearLayout
         android:id="@+id/a_item"
         android:orientation="horizontal"
+        android:layout_gravity="center"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:clickable="true"
-        android:focusable="true"
-        android:background="?android:selectableItemBackground"
-        android:padding="16dp">
+        android:focusable="true">
 
         <CheckBox
             android:id="@+id/a_cb"
@@ -31,33 +39,27 @@
             android:layout_marginEnd="8dp"
             android:transitionName="icon"
             tools:ignore="HardcodedText,UnusedAttribute" />
-
-        <LinearLayout
-            android:orientation="vertical"
+        <TextView
+            android:id="@+id/a_name"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="match_parent"
+            android:gravity="center_vertical"
+            android:layout_marginBottom="4dp"
+            android:ellipsize="end"
+            android:textSize="16sp"
+            android:textColor="@color/colorText"
+            android:text="" />
 
-            <TextView
-                android:id="@+id/a_name"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="4dp"
-                android:ellipsize="end"
-                android:textSize="16sp"
-                android:textColor="@color/colorText"
-                android:text="" />
-
-            <TextView
-                android:id="@+id/a_package"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:ellipsize="end"
-                android:typeface="monospace"
-                android:textSize="10sp"
-                android:textColor="@color/colorTextMuted"
-                android:text="" />
-        </LinearLayout>
+        <TextView
+            android:id="@+id/a_package"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:ellipsize="end"
+            android:typeface="monospace"
+            android:textSize="10sp"
+            android:textColor="@color/colorTextMuted"
+            android:text="" />
 
     </LinearLayout>
 
-</LinearLayout>
+</androidx.cardview.widget.CardView>

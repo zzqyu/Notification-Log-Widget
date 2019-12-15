@@ -16,7 +16,7 @@
         android:theme="@style/AppTheme"
         android:networkSecurityConfig="@xml/network_security_config"
         tools:ignore="GoogleAppIndexingWarning">
-        <activity android:name=".ui.LockActivity"></activity>
+
         <!-- Activities -->
         <activity
             android:name=".ui.MainActivity"
@@ -46,7 +46,12 @@
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".ui.MainActivity" />
-        </activity> <!-- Services -->
+        </activity>
+
+        <activity android:name=".ui.LockActivity"
+            android:theme="@style/AppThemeNoTitleBar"/>
+
+        <!-- Services -->
         <service
             android:name=".service.NotificationListener"
             android:exported="false"

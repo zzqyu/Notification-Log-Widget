@@ -13,7 +13,10 @@ import android.widget.RemoteViews;
 import android.widget.Toast;
 import com.dolapps.bank_noti_widget.R;
 import com.dolapps.bank_noti_widget.misc.Const;
+import com.dolapps.bank_noti_widget.misc.NotiDatabaseHelper;
 import com.dolapps.bank_noti_widget.ui.LockActivity;
+
+import java.text.DecimalFormat;
 
 
 /**
@@ -75,13 +78,21 @@ public class BalanceWidget extends AppWidgetProvider {
         int c1 = pref.getInt(Const.PREF_COLOR1, context.getColor(R.color.colorBackgroundWidget));
         int c2 = pref.getInt(Const.PREF_COLOR2, context.getColor(R.color.colorTextWidget));
 
-        views.setTextViewText(R.id.widget_title, "은행별 잔고");//set app title on widget
+
+        //TODO: set adapter to list
+        views.setRemoteAdapter(R.id.widget_balance_list_view,new Intent(context,BalanceWidgetService.class));
+
+        Long total = NotiDatabaseHelper.getTotalBalance(context);
+        String title = "은행별 잔고";
+        if(total!=null){
+            title = "총 금액: " + new DecimalFormat("###,###").format(total) + "원";
+        }
+
+        views.setTextViewText(R.id.widget_title, title);//set app title on widget
         views.setTextColor(R.id.widget_title, c2);//set app title on widget
         views.setInt(R.id.widget_lock, "setColorFilter", c2);
         views.setInt(R.id.widget_unlock, "setColorFilter", c2);
         views.setInt(R.id.widget_bg, "setBackgroundColor", c1);
-        //TODO: set adapter to list
-        views.setRemoteAdapter(R.id.widget_balance_list_view,new Intent(context,BalanceWidgetService.class));
 
         //TODO: launch browser activity
        // views.setPendingIntentTemplate(R.id.widget_balance_list_view, PendingIntent.getActivity(context, appWidgetId,new Intent(context, BrowseActivity.class), PendingIntent.FLAG_UPDATE_CURRENT));
@@ -93,7 +104,7 @@ public class BalanceWidget extends AppWidgetProvider {
 
     }
 
-    private  void widgetLayout(Context context, RemoteViews views,  AppWidgetManager manager, int widgetId ){
+    private void widgetLayout(Context context, RemoteViews views,  AppWidgetManager manager, int widgetId ){
 
         Intent intentUnlock = new Intent(context, BalanceWidget.class);
         intentUnlock.setAction(ACTION_UNLOCK);
@@ -108,13 +119,21 @@ public class BalanceWidget extends AppWidgetProvider {
         int c1 = pref.getInt(Const.PREF_COLOR1, context.getColor(R.color.colorBackgroundWidget));
         int c2 = pref.getInt(Const.PREF_COLOR2, context.getColor(R.color.colorTextWidget));
 
-        views.setTextViewText(R.id.widget_title, "은행별 잔고");//set app title on widget
+
+        //TODO: set adapter to list
+        views.setRemoteAdapter(R.id.widget_balance_list_view,new Intent(context,BalanceWidgetService.class));
+
+        Long total = NotiDatabaseHelper.getTotalBalance(context);
+        String title = "은행별 잔고";
+        if(total!=null){
+            title = "총 금액: " + new DecimalFormat("###,###").format(total) + "원";
+        }
+
+        views.setTextViewText(R.id.widget_title, title);//set app title on widget
         views.setTextColor(R.id.widget_title, c2);//set app title on widget
         views.setInt(R.id.widget_lock, "setColorFilter", c2);
         views.setInt(R.id.widget_unlock, "setColorFilter", c2);
         views.setInt(R.id.widget_bg, "setBackgroundColor", c1);
-        //TODO: set adapter to list
-        views.setRemoteAdapter(R.id.widget_balance_list_view,new Intent(context,BalanceWidgetService.class));
 
         //TODO: launch browser activity
         //views.setPendingIntentTemplate(R.id.widget_balance_list_view, PendingIntent.getActivity(context, widgetId,new Intent(context, BrowseActivity.class), PendingIntent.FLAG_UPDATE_CURRENT));
@@ -158,32 +177,32 @@ public class BalanceWidget extends AppWidgetProvider {
         Log.i("BalanceWidget", "onReceive");
         AppWidgetManager manager = AppWidgetManager.getInstance(context);
         ComponentName testWidget = new ComponentName(context.getPackageName(), BalanceWidget.class.getName());
-        int widgetId = manager.getAppWidgetIds(testWidget)[0];
+        int[] wIds = manager.getAppWidgetIds(testWidget);
+        if(wIds==null||wIds.length==0);
+        else {
+            int widgetId = manager.getAppWidgetIds(testWidget)[0];
 
-        Log.i("onReceive", intent.getAction() );
-        if(intent.getAction().equals(ACTION_UNLOCK)){
-            Intent lock = new Intent(context, LockActivity.class);
-            lock.putExtra("state", 2);
-            lock.putExtra("isWidget", true);
-            context.startActivity(lock.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK));
+            Log.i("onReceive", intent.getAction());
+            if (intent.getAction().equals(ACTION_UNLOCK)) {
+                Intent lock = new Intent(context, LockActivity.class);
+                lock.putExtra("state", 2);
+                lock.putExtra("isWidget", true);
+                context.startActivity(lock.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK));
 
-        }
-        else if(intent.getAction().equals(ACTION_LOCK)){
-            if(pref.getString("password", "").equals("")){
-                Toast.makeText(context, "은행잔고위젯에서 잠금 기능을 설정하세요.", Toast.LENGTH_LONG).show();
-            }
-            else{
-                views.setViewVisibility(R.id.widget_bg, View.GONE);
-                views.setViewVisibility(R.id.widget_lock_bg, View.VISIBLE);
+            } else if (intent.getAction().equals(ACTION_LOCK)) {
+                if (pref.getString("password", "").equals("")) {
+                    Toast.makeText(context, "은행잔고위젯에서 잠금 기능을 설정하세요.", Toast.LENGTH_LONG).show();
+                } else {
+                    views.setViewVisibility(R.id.widget_bg, View.GONE);
+                    views.setViewVisibility(R.id.widget_lock_bg, View.VISIBLE);
+                    widgetLayout(context, views, manager, widgetId);
+                }
+            } else if (intent.getAction().equals(ACTION_UNLOCK_SUCESS)) {
+                views.setViewVisibility(R.id.widget_bg, View.VISIBLE);
+                views.setViewVisibility(R.id.widget_lock_bg, View.GONE);
                 widgetLayout(context, views, manager, widgetId);
             }
         }
-        else if(intent.getAction().equals(ACTION_UNLOCK_SUCESS)){
-            views.setViewVisibility(R.id.widget_bg, View.VISIBLE);
-            views.setViewVisibility(R.id.widget_lock_bg, View.GONE);
-            widgetLayout(context, views, manager, widgetId);
-        }
-
     }
 
     @Override

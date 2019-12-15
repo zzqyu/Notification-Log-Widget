@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <color name="colorPrimary">#455a64</color>
+    <color name="colorPrimary">#f2f2f2</color>
+   <!-- <color name="colorPrimary">#455a64</color>-->
     <color name="colorPrimaryDark">#263238</color>
     <color name="colorAccent">#65d4ab</color>
 
@@ -17,5 +18,8 @@
 
     <color name="colorBackgroundWidget">#66000000</color>
     <color name="colorTextWidget">#ffffff</color>
+
+
+    <color name="colorPrefCateTitle">#858585</color>
 
 </resources>

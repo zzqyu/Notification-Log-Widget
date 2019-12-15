@@ -222,7 +222,7 @@ public class Util {
 			m = p.matcher(jsonString);
 		}
 		else{
-			p = Pattern.compile("[0-9*-]{10,17}+");
+			p = Pattern.compile("([0-9*-]{11,17}+|[0-9*]{10,17}+)");
 			m = p.matcher(jsonString);
 		}
 		if(m.find()){
@@ -239,7 +239,7 @@ public class Util {
 	}
 }
 /*
-하나카드드드 출금 10,000원 잔액 10,000원 잔액10,000원 244-******-12345
+하나카드드드 출금 10,000원 잔액 10,000원 잔액10,000원 244-******-12345 2019-10-31
 (구)KB국민은행12 XXX-XX-XXXX-XXX
 (신)KB국민은행14 XXXXXX-XX-XXXXXX
 IBK기업은행14 XXX-XXXXXX-XX-XXX

@@ -31,6 +31,7 @@ public class MainActivity extends AppCompatActivity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
+		getSupportActionBar().setElevation(0);
 		pref= this.getSharedPreferences("bankNotiWidget", this.MODE_PRIVATE); // 선언
 		if(!pref.contains("password")){
 			SharedPreferences.Editor editor = pref.edit();// editor에 put 하기
@@ -41,8 +42,12 @@ public class MainActivity extends AppCompatActivity {
 			editor.commit(); //완료한다.
 		}
 
-		//new NotificationHandler(this).updateBalance(NotiDatabaseHelper.PostedEntry.TABLE_NAME, "com.kebhana.hanapush","하나카드드드 출금 10,000원 잔액 10,000원 잔액10,000원 244-******-12345");
-		//new AppListAdapter(this).saveCheck("com.kebhana.hanapush", true);
+		//new AppListAdapter(this).saveCheck("com.scbank.ma30", true);
+		//new AppListAdapter(this).saveCheck("com.kakaobank.channel", true);
+		//new NotificationHandler(this).updateBalance(NotiDatabaseHelper.AccountEntry.TABLE_NAME, "com.kebhana.hanapush","김정규 출금 10,000원 잔액 384,604원 2019-12-02 15:31 373-******-54107");
+		//new NotificationHandler(this).updateBalance(NotiDatabaseHelper.AccountEntry.TABLE_NAME, "com.scbank.ma30","[입금] 1원 하나 김민영 586201**76계좌 잔액 412원 11/25 09:01");
+		//new NotificationHandler(this).updateBalance(NotiDatabaseHelper.AccountEntry.TABLE_NAME, "com.kakaobank.channel","김*규(1234) 11/21 20:36 출금 1원 브래덴코 잔액 1000원");
+
 
 		if(!pref.getString("password","").equals("")){
 			Intent lock = new Intent(this, LockActivity.class);
@@ -118,8 +123,8 @@ public class MainActivity extends AppCompatActivity {
 		try {
 			NotiDatabaseHelper dbHelper = new NotiDatabaseHelper(this);
 			SQLiteDatabase db = dbHelper.getWritableDatabase();
-			db.execSQL(NotiDatabaseHelper.SQL_DELETE_ENTRIES_POSTED);
-			db.execSQL(NotiDatabaseHelper.SQL_CREATE_ENTRIES_POSTED);
+			db.execSQL(NotiDatabaseHelper.SQL_DELETE_ENTRIES);
+			db.execSQL(NotiDatabaseHelper.SQL_CREATE_ENTRIES);
 			BalanceWidget.updateAppWidgets(this);
 		} catch (Exception e) {
 			if(Const.DEBUG) e.printStackTrace();

@@ -36,7 +36,7 @@ public class SettingsFragment extends PreferenceFragmentCompat {
 	private NotiDatabaseHelper dbHelper;
 	private BroadcastReceiver updateReceiver;
 
-	private Preference prefStatus;
+	private CheckBoxPreference prefStatus;
 	private Preference prefBrowse;
 	private Preference prefAppList;
 	private CheckBoxPreference prefWidgetLock;
@@ -48,9 +48,8 @@ public class SettingsFragment extends PreferenceFragmentCompat {
 	@Override
 	public void onCreatePreferences(Bundle bundle, String s) {
 		addPreferencesFromResource(R.xml.preferences);
+		getActivity().setTheme(R.style.PreferenceStyle);
 		pref= getContext().getSharedPreferences("bankNotiWidget", getContext().MODE_PRIVATE); // 선언
-
-
 
 		PreferenceManager pm = getPreferenceManager();
 
@@ -181,10 +180,12 @@ public class SettingsFragment extends PreferenceFragmentCompat {
 
 		if(Util.isNotificationAccessEnabled(getActivity())) {
 			prefStatus.setSummary(R.string.settings_notification_access_enabled);
+			prefStatus.setChecked(true);
 		} else {
 			prefStatus.setSummary(R.string.settings_notification_access_disabled);
 			Toast.makeText(getContext(), R.string.settings_notification_access_disabled_more, Toast.LENGTH_LONG).show();
 			startActivity(new Intent("android.settings.ACTION_NOTIFICATION_LISTENER_SETTINGS"));
+			prefStatus.setChecked(false);
 		}
 
 		update();
@@ -199,7 +200,7 @@ public class SettingsFragment extends PreferenceFragmentCompat {
 	private void update() {
 		try {
 			SQLiteDatabase db = dbHelper.getReadableDatabase();
-			long numRowsPosted = DatabaseUtils.queryNumEntries(db, NotiDatabaseHelper.PostedEntry.TABLE_NAME);
+			long numRowsPosted = DatabaseUtils.queryNumEntries(db, NotiDatabaseHelper.AccountEntry.TABLE_NAME);
 			int stringResource = R.string.settings_browse_summary;
 			if(stringResource>0) prefBrowse.setSummary(getString(stringResource, numRowsPosted));
 			int cnt = (pref.getAll().size()-4);
