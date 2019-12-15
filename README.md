@@ -11,7 +11,7 @@
 
 사용불가은행: 신한, 부산
 
-테스트완료은행: 하나, 국민, 농협, 카카오, sc제일, 우리
+테스트완료은행: 하나, 국민, 농협, 카카오, sc제일, 우리, 기업
 
 <a href="https://play.google.com/store/apps/details?id=com.dolapps.bank_noti_widget"><img src="./playstore.jpg" width="30%"/></a>
 
