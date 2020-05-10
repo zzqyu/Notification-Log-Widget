@@ -13,6 +13,7 @@ import android.os.Build;
 import android.os.LocaleList;
 import android.os.PowerManager;
 import android.provider.Settings;
+import android.util.Log;
 import android.widget.Toast;
 
 import androidx.core.content.PermissionChecker;
@@ -205,14 +206,17 @@ public class Util {
 	}
 
 	public static String[] getAccountBalance(Context context, String packageName, String jsonString){
+		Log.i("getAccountBalance1", jsonString);
 		String[] result=null;
 		String reason = "";
-		Pattern p = Pattern.compile("잔액[0-9, ]+");
+		Pattern p = Pattern.compile("잔액[0-9, -]+");
 		Matcher m = p.matcher(jsonString);
 		String balance="", account="";
 		if(m.find()){
 			balance = m.group();
-			balance = balance.replaceAll("[^0-9]", "");
+			Log.i("getAccountBalance2", balance);
+			balance = balance.replaceAll("[^0-9-]", "");
+			Log.i("getAccountBalance3", balance);
 		}
 		else {
 			reason+="잔액";

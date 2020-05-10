@@ -30,5 +30,5 @@ public class Const {
 	public static final String PACKAGE_APPNAME = "{'com.kebhana.hanapush': '하나은행',	'com.kbstar.starpush': '국민은행',	'com.wr.alrim': '우리은행',	'com.nh.mobilenoti': '농협',"+
 	"'com.IBK.SmartPush.app': '기업은행',	'kr.co.citibank.citimobile': '씨티은행',	'kr.co.dgb.dgbfium': '대구은행',	'com.scbank.ma30': 'SC제일은행',"+
 	"'com.kbankwith.smartbank': '케이뱅크',	'com.kakaobank.channel': '카카오뱅크',	'com.smg.mgnoti': '새마을금고',	'co.kr.kdb.android.smartkdb': '산업은행',"+
-	"'com.suhyup.pesmb': '수협',	'kr.co.jbbank.smartbank': '전북은행',	'com.knb.bsp': '경남은행',	'com.cu.sbank': '신협'}";
+	"'com.suhyup.pesmb': '수협',	'kr.co.jbbank.smartbank': '전북은행',	'com.knb.bsp': '경남은행',	'kr.co.cu.onbank': '신협'}";
 }
