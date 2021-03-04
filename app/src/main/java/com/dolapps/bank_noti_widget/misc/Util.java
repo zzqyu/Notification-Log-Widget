@@ -221,8 +221,8 @@ public class Util {
 		else {
 			reason+="잔액";
 		}
-		if(packageName.equals("com.kakaobank.channel")){
-			p = Pattern.compile("[가-힣* ]+[0-9()]{6}");//홍*동(1234)
+		if(packageName.equals("com.kakaobank.channel")||packageName.equals("com.kbankwith.smartbank")){
+			p = Pattern.compile("[가-힣A-Z* ]+[0-9()]{6}");//홍*동(1234)
 			m = p.matcher(jsonString);
 		}
 		else{
@@ -235,10 +235,8 @@ public class Util {
 		else{
 			reason+=(reason.equals("")?"":"과 ")+" 계좌번호";
 		}
-		if(!reason.equals("")){
-			Toast.makeText(context, Util.getAppNameFromPackage(context, packageName, false)+"의 알림에 "+reason.equals("")+" 표시가 없어 사용할 수 없습니다. ", Toast.LENGTH_SHORT).show();
-		}
-		else result = new String[]{account, balance};
+		//Toast.makeText(context, Util.getAppNameFromPackage(context, packageName, false)+"의 알림에 "+reason+" 표시가 없어 사용할 수 없습니다. ", Toast.LENGTH_SHORT).show();
+		if(reason.equals("")) result = new String[]{account, balance};
 		return result;
 	}
 }
