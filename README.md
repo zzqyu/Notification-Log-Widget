@@ -10,9 +10,8 @@ width="30%"/></a>
 
 ### 1. [세부 설명]
 ### 2. [진행 사항]
-<br>
-
-### 3. 소개
+### 3. [관련 영상]
+### 4. 소개
 이 [repository]를 기반으로 만들었습니다. 
 
 은행 계좌의 입송금으로 인해 발생하는 Notification을 Parsing해 필요한 정보를 위젯으로 정리해 표출하는 안드로이드 어플리케이션 입니다.
@@ -27,3 +26,4 @@ width="30%"/></a>
 [repository]: https://github.com/alwise/Notification-Log-Widget
 [세부 설명]: ./detail.md
 [진행 사항]: ./history.md
+[관련 영상]: https://youtu.be/MQ1YyA7HUnE
