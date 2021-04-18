@@ -69,12 +69,38 @@ public class NotiDatabaseHelper extends SQLiteOpenHelper {
 		NotiDatabaseHelper dbHelper =  new NotiDatabaseHelper(context);
 		SQLiteDatabase db = dbHelper.getWritableDatabase();
 		ContentValues values = new ContentValues();
-		values.put(AccountEntry.BANK, item.getPackageName());
-		values.put(AccountEntry.ACCOUNT, item.getAccount());
-		values.put(AccountEntry.BALANCE, item.getBalance());
-		values.put(AccountEntry.ALIAS, item.getAlias());
-		values.put(AccountEntry.RANK, rank);
-		db.replace(AccountEntry.TABLE_NAME, "null", values);
+		Log.i("[SQL_TEST]", "[replaceAccountDBItem]");
+		Log.i("[SQL_TEST]", "[Item PackageName] " + item.getPackageName());
+		Log.i("[SQL_TEST]", "[Item Account] " + item.getAccount());
+		Log.i("[SQL_TEST]", "[Item Balance] " + item.getBalance());
+		Log.i("[SQL_TEST]", "[Item Alias] " + item.getAlias());
+
+		if(item.getPackageName()!=null) values.put(AccountEntry.BANK, item.getPackageName());
+		if(item.getAccount()!=null) values.put(AccountEntry.ACCOUNT, item.getAccount());
+		if(item.getBalance()!=null) values.put(AccountEntry.BALANCE, item.getBalance());
+		if(item.getAlias()!=null) {
+			values.put(AccountEntry.ALIAS, item.getAlias());
+		}
+		if(rank!=null) values.put(AccountEntry.RANK, rank);
+
+		//select 해서 데이터 확인
+		Cursor cursor = db.query(NotiDatabaseHelper.AccountEntry.TABLE_NAME,
+				null,
+				AccountEntry.ACCOUNT+" = ? ",
+				new String[]{item.getAccount()}, null, null, null, null);
+		cursor.moveToFirst();
+		if(cursor.getCount()>0){//있으면 update
+			db.update(NotiDatabaseHelper.AccountEntry.TABLE_NAME, values,
+					AccountEntry.ACCOUNT+" = ?  and "+AccountEntry.BANK+" = ?",
+					new String[]{item.getAccount(), item.getPackageName()});
+			Log.i("[SQL_TEST]", "있으면 update");
+		}
+		else {//없으면 insert
+			//db.replace(AccountEntry.TABLE_NAME, "null", values);
+			db.insert(AccountEntry.TABLE_NAME, "null", values);
+			Log.i("[SQL_TEST]", "없으면 insert");
+		}
+
 		db.close();
 		dbHelper.close();
 	}

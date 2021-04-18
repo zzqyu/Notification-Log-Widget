@@ -14,6 +14,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.dolapps.bank_noti_widget.R;
+import com.dolapps.bank_noti_widget.misc.NotiDatabaseHelper;
 import com.kakao.adfit.ads.AdListener;
 import com.kakao.adfit.ads.ba.BannerAdView;
 
@@ -74,6 +75,14 @@ public class BrowseActivity extends AppCompatActivity{
 		});
 		ad.loadAd();
 
+		/*Log.i("[SQL_TEST]", "!!!!");
+		NotiDatabaseHelper.replaceAccountDBItem(this,
+				new BrowseAdapter.Item(
+						"com.kebhana.hanapush",
+						"하나은행",
+						"244-******-39105",
+						null,
+						new Long(13951)),0);*/
 	}
 
 

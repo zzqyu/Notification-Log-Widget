@@ -47,7 +47,9 @@ public class NotificationHandler {
 				String[] info = Util.getAccountBalance(context, packageName, text);
 				if(info!=null) {
 					synchronized (LOCK) {
-						NotiDatabaseHelper.replaceAccountDBItem(context, new BrowseAdapter.Item(packageName, null, info[0], null, Long.parseLong(info[1])), null);
+						NotiDatabaseHelper.replaceAccountDBItem(context,
+								//						packageName, appname,    	account, 	alias		, balance,				rank
+								new BrowseAdapter.Item(packageName, null, info[0], null, Long.parseLong(info[1])), null);
 						BalanceWidget.updateAppWidgets(context);
 					}
 				}
@@ -57,22 +59,6 @@ public class NotificationHandler {
 			if(Const.DEBUG) e.printStackTrace();
 		}
 	}
-	public void updateBalance(String tableName,  String packageName, String text) {
-		try {
-			if(text != null) {
-				if(!pref.getBoolean(packageName, false))return ;
-				String[] info = Util.getAccountBalance(context, packageName, text);
-				if(info!=null) {
-					synchronized (LOCK) {
-						NotiDatabaseHelper.replaceAccountDBItem(context, new BrowseAdapter.Item(packageName, null, info[0], null, Long.parseLong(info[1])), null);
-						BalanceWidget.updateAppWidgets(context);
-					}
-				}
 
-			}
-		} catch (Exception e) {
-			if(Const.DEBUG) e.printStackTrace();
-		}
-	}
 
 }

@@ -8,8 +8,8 @@ android {
         applicationId 'com.dolapps.bank_noti_widget'
         minSdkVersion 23
         targetSdkVersion 29
-        versionCode 110
-        versionName '1.1.0'
+        versionCode 111
+        versionName '1.1.1'
     }
 
     buildTypes {

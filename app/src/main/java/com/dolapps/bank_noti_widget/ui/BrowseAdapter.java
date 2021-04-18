@@ -157,13 +157,13 @@ public class BrowseAdapter extends RecyclerView.Adapter<BrowseViewHolder>  imple
 
 	public static class Item {
 
-		private String packageName;
-		private String appName;
-		private String account;
-		private String alias;
-		private long balance;
+		private String packageName=null;
+		private String appName=null;
+		private String account=null;
+		private String alias=null;
+		private Long balance=null;
 
-		public Item(String packageName, String appName, String account, String alias, long balance) {
+		public Item(String packageName, String appName, String account, String alias, Long balance) {
 			this.packageName = packageName;
 			this.appName = appName;
 			this.account = account;
@@ -185,7 +185,7 @@ public class BrowseAdapter extends RecyclerView.Adapter<BrowseViewHolder>  imple
 		public String getAlias() {
 			return alias;
 		}
-		public long getBalance() {
+		public Long getBalance() {
 			return balance;
 		}
 
